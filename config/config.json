@@ -1,0 +1,16 @@
+{
+  "BaseTokenURI": "ipfs://",
+  "ethereum": {
+    "signerAddress": ""
+  },
+  "optimism": {
+    "signerAddress": ""
+  },
+  "arbitrum": {
+    "signerAddress": ""
+  },
+  "avalanche": {
+    "signerAddress": ""
+  },
+  "sepolia": { "signerAddress": "0xA6d6fEf176De9ef581809764D9C8F157f15D36c8" }
+}
