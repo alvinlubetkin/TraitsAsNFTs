@@ -7,6 +7,7 @@ require("solidity-coverage");
 require("hardhat-gas-reporter");
 require("hardhat-deploy");
 require("hardhat-deploy-ethers");
+require("./tasks");
 
 function accounts(chainKey) {
   if (chainKey == 1) {
@@ -31,10 +32,10 @@ module.exports = {
   },
 
   etherscan: {
-    // apiKey: "BE2S5CGR2C35TKRQP3NUA3JV46XYCBQIGG",
+    apiKey: "BE2S5CGR2C35TKRQP3NUA3JV46XYCBQIGG",
     // eth,
     // apiKey: "EKIQVVD96BA5K7H4A4KW2YP4H4F2DTZD4T", //avax
-    apiKey: "7MS9QB3V5D52ZUX8VMZ6667UZA8K9IZI8G", //fantom
+    // apiKey: "7MS9QB3V5D52ZUX8VMZ6667UZA8K9IZI8G", //fantom
     // apiKey: "EK9EU3XX4WQHVGAGAQS9EADV42Z8VPDE1T", //bsc
     // apiKey: "1WBRWETBD931KRDVNV22EYVE3T75BTKPAQ", //optimism
     // apiKey: "67HQUVZ7JZIVYJNYFFQF3VKKYAW5RNH982", // arbitrum
@@ -77,7 +78,7 @@ module.exports = {
       accounts: accounts(1),
     },
     sepolia: {
-      url: "https://ethereum-sepolia-rpc.publicnode.com	",
+      url: "https://ethereum-sepolia-rpc.publicnode.com",
       chainId: 11155111,
       accounts: accounts(4),
     },
@@ -92,8 +93,13 @@ module.exports = {
       accounts: accounts(),
     },
     mumbai: {
-      url: "https://rpc-mumbai.maticvigil.com/",
+      url: "https://polygon-testnet.public.blastapi.io",
       chainId: 80001,
+      accounts: accounts(4),
+    },
+    amoy: {
+      url: "https://rpc-amoy.polygon.technology/",
+      chainId: 80002,
       accounts: accounts(4),
     },
     "arbitrum-rinkeby": {

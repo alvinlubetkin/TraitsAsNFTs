@@ -1,5 +1,5 @@
 {
-  "BaseTokenURI": "ipfs://",
+  "BaseTokenURI": "https://traitnftmetadata.azurewebsites.net/api/traitmetadata?token_id=",
   "ethereum": {
     "signerAddress": ""
   },
@@ -12,5 +12,6 @@
   "avalanche": {
     "signerAddress": ""
   },
-  "sepolia": { "signerAddress": "0xA6d6fEf176De9ef581809764D9C8F157f15D36c8" }
+  "sepolia": { "signerAddress": "0xA6d6fEf176De9ef581809764D9C8F157f15D36c8" },
+  "mumbai": { "signerAddress": "0xA6d6fEf176De9ef581809764D9C8F157f15D36c8" }
 }

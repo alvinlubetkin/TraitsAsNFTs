@@ -9,7 +9,7 @@ interface IERC1155 {
 contract BackendMinter is AccessControl, EIP712 {
     using Strings for uint;
 
-    bytes32 public constant MINTER_TYPEHASH = keccak256("Mint(uint256 tokenId,address user,uint256 nonce)");
+    bytes32 public constant MINTER_TYPEHASH = keccak256("mint(uint256 tokenId,address user,uint256 nonce)");
 
     //must use different signerAddress per chain
     address public signerAddress;
@@ -44,9 +44,13 @@ contract BackendMinter is AccessControl, EIP712 {
         _;
     }
 
+    event SignerAddressSet(address newSigner);
+    event MintActiveSet(bool isActive);
+
     /// @param _nftAddress the address of the erc1155 contract that will be minted
     /// @param _signerAddress the address that will be used to verify mint eligibility
     constructor(IERC1155 _nftAddress, address _signerAddress) EIP712("BackendMinter", "1") {
+        require(_signerAddress != address(0), "signer address cannot be 0 address");
         signerAddress = _signerAddress;
         erc1155 = _nftAddress;
 
@@ -63,13 +67,18 @@ contract BackendMinter is AccessControl, EIP712 {
     }
 
     ///@param _signerAddress update with new developer address for signatures
-    function setSignerAddress(address _signerAddress) public onlyOwner {
+    function setSignerAddress(address _signerAddress) external onlyOwner {
+        require(_signerAddress != address(0), "signer address cannot be 0 address");
         signerAddress = _signerAddress;
+
+        emit SignerAddressSet(_signerAddress);
     }
 
     ///@param _isStarted used to pause and unpause minting 
-    function setMintStarted(bool _isStarted) public onlyOwner {
+    function setMintStarted(bool _isStarted) external onlyOwner {
         mintStarted = _isStarted;
+        emit MintActiveSet(_isStarted);
+        
     }
 
 

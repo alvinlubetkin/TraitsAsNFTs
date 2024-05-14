@@ -1,3 +1,4 @@
+const { upgrades } = require("hardhat");
 const CONFIG = require("../config/config.json");
 
 module.exports = async function ({ deployments, getNamedAccounts }) {
@@ -7,7 +8,7 @@ module.exports = async function ({ deployments, getNamedAccounts }) {
     console.log(`>>> your address: ${deployer}`);
     console.log(`hre.network.name: ${hre.network.name}`);
     console.log(
-      `
+      `baseTokenURI = ${CONFIG.BaseTokenURI}
         `
     );
   };
@@ -23,6 +24,10 @@ module.exports = async function ({ deployments, getNamedAccounts }) {
           methodName: "initialize",
           args: [CONFIG.BaseTokenURI],
         },
+      },
+      upgradeFunction: {
+        methodName: "upgradeToAndCall",
+        upgradeArgs: ["{implementation}", "{data}"],
       },
     },
     log: true,

@@ -14,7 +14,7 @@ async function signMint(
   };
 
   const types = {
-    Mint: [
+    mint: [
       { name: "tokenId", type: "uint256" },
       { name: "user", type: "address" },
       { name: "nonce", type: "uint256" },

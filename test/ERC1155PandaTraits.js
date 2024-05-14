@@ -1,5 +1,6 @@
 const { expect } = require("chai");
 const { ethers, deployments } = require("hardhat");
+const CONFIG = require("../config/config.json");
 
 describe("ERC1155PandaTraits", function () {
   let accounts, nft, deployer, user, invalidUser;
@@ -21,7 +22,7 @@ describe("ERC1155PandaTraits", function () {
 
   describe("Deployment", function () {
     it("Should initialize properly", async function () {
-      expect(await nft.baseTokenURI()).to.be.equal("ipfs://");
+      expect(await nft.baseTokenURI()).to.be.equal(CONFIG.BaseTokenURI);
     });
 
     it("Should assign deployer admin and minter roles", async () => {
@@ -40,7 +41,7 @@ describe("ERC1155PandaTraits", function () {
   describe("Functions", () => {
     describe("View Functions", () => {
       it("uri() should return baseTokenURI appended with tokenId", async () => {
-        expect(await nft.uri(99)).to.be.equal(`ipfs://${99}`);
+        expect(await nft.uri(99)).to.be.equal(`${CONFIG.BaseTokenURI}${99}`);
       });
       it("uri() should return customMetadata if exists", async () => {
         let tokenId = 99;
@@ -50,6 +51,18 @@ describe("ERC1155PandaTraits", function () {
       });
     });
     describe("Update Functions", () => {
+      it("setURI() should function correctly", async () => {
+        let customUri = "ifps://custom/";
+        let tokenId = 99;
+        expect(await nft.uri(tokenId)).to.not.be.equal(
+          customUri + tokenId,
+          "custom uri is already set"
+        );
+
+        await nft.connect(deployer).setURI(customUri);
+
+        expect(await nft.uri(tokenId)).to.be.equal(customUri + tokenId);
+      });
       it("setCustomMetadata() should function correctly", async () => {
         let customUri = "ifps://custom";
         let tokenId = 99;
